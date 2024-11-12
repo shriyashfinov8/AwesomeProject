@@ -38,25 +38,20 @@ platform :android do
         end
   
         sh "git status"
-        sh "git add ./android/app/build.gradle"
-        
-        # Add git configs
-        sh "git config user.name shriyashfinov8"
-        sh "git config user.email shriyash@finov8.io"
 
         # Add changes to git
-        # git_add(path: './android/app/build.gradle')
+        git_add(path: './android/app/build.gradle')
   
         # Commit the changes
-        # git_commit(
-        #   path: './android/app/build.gradle',
-        #   message: "Bump version code and name to #{version_name}"
-        # )
-        sh "git commit -m 'Bump version code and name to #{version_name}'"
+        git_commit(
+          path: './android/app/build.gradle',
+          message: "Bump version code and name to #{version_name}"
+        )
+        # sh "git commit -m 'Bump version code and name to #{version_name}'"
   
         # Push the commit to the remote repository
-        # push_to_git_remote
-        sh "git push -u origin main"
+        push_to_git_remote
+        # sh "git push -u origin main"
   
         # Build the AAB
         # gradle(task: 'clean bundleRelease', project_dir: './android/')
