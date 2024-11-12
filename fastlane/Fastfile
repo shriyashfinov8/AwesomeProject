@@ -44,13 +44,15 @@ platform :android do
         git_add(path: './android/app/build.gradle')
   
         # Commit the changes
-        git_commit(
-          path: './android/app/build.gradle',
-          message: "Bump version code and name to #{version_name}"
-        )
+        # git_commit(
+        #   path: './android/app/build.gradle',
+        #   message: "Bump version code and name to #{version_name}"
+        # )
+        sh "git commit -m 'Bump version code and name to #{version_name}'"
   
         # Push the commit to the remote repository
-        push_to_git_remote
+        # push_to_git_remote
+        sh "git push origin HEAD"
   
         # Build the AAB
         # gradle(task: 'clean bundleRelease', project_dir: './android/')
