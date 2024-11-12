@@ -39,7 +39,11 @@ platform :android do
   
         sh "git status"
         sh "git add ./android/app/build.gradle"
-  
+        
+        # Add git configs
+        sh "git config user.name shriyashfinov8"
+        sh "git config user.email shriyash@finov8.io"
+
         # Add changes to git
         # git_add(path: './android/app/build.gradle')
   
