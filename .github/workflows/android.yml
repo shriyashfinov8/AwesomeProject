@@ -4,7 +4,6 @@ name: CI
 
 # Controls when the workflow will run
 on:
-  on:
   workflow_dispatch: # This allows manual triggering
     inputs:
       version_number:
