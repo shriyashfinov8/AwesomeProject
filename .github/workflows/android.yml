@@ -51,9 +51,9 @@ jobs:
           bundle install --jobs 4 --retry 3
 
       - name: Configure Git user
-          run: |
-            git config user.name "shriyashfinov8"
-            git config user.email "shriyash@finov8.io"
+        run: |
+          git config user.name "shriyashfinov8"
+          git config user.email "shriyash@finov8.io"
 
       - name: Determine Version Number
         id: get_version
