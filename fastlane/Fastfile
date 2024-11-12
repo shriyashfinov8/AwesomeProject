@@ -1,0 +1,53 @@
+before_all do
+    ensure_git_status_clean  # Ensure no uncommitted changes
+    git_pull                 # Pull the latest changes from the remote repository
+end
+
+platform :android do
+    desc "Build and Upload AAB for Internal Testing with optional environment-provided version name"
+    lane :release_to_play_store do
+        # Change directory to the repository root
+        Dir.chdir("..") do
+            version_name = ENV['version_number']
+
+            # Manually increment the version code in build.gradle
+            increment_version_code_in_gradle(gradle_file_path: './android/app/build.gradle')
+
+            # Update the version name in build.gradle only if VERSION_NAME is set
+            if version_name
+                update_version_name_in_gradle(version_name: version_name)
+            else
+                UI.message("version_number not provided, reusing the existing versionName in build.gradle")
+                version_name = get_version_name_from_gradle(gradle_file_path: './android/app/build.gradle')  # Use the existing version name
+            end
+        end
+
+        sh "git status"
+        sh "git add ./android/app/build.gradle"
+
+        # Add changes to git
+        # git_add(path: './android/app/build.gradle')
+
+        # Commit the changes
+        git_commit(
+            path: './android/app/build.gradle',
+            message: "Bump version code and name to #{version_name}"
+        )
+
+        # Push the commit to the remote repository
+        push_to_git_remote
+
+        # Build the AAB
+        gradle(task: 'clean bundleRelease', project_dir: './android/')
+
+        # Upload the AAB to Google Play internal track
+        # upload_to_play_store(
+        #   track: 'internal',  # Always upload to internal track
+        #   aab: './android/app/build/outputs/bundle/release/app-release.aab',  # Path to the built AAB
+        #   release_status: 'completed',  # Mark the release as completed
+        #   release_notes: {
+        #     'en-US' => "Release #{version_name}, Build #{get_version_code(app_project_dir: './android/app')}"
+        #   }
+        # )
+    end
+end
