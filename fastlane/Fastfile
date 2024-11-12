@@ -38,10 +38,10 @@ platform :android do
         end
   
         sh "git status"
-        sh "git add ./android/app/build.gradle"
+        # sh "git add ./android/app/build.gradle"
   
         # Add changes to git
-        # git_add(path: './android/app/build.gradle')
+        git_add(path: './android/app/build.gradle')
   
         # Commit the changes
         git_commit(
