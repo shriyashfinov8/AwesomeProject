@@ -44,7 +44,7 @@ platform :android do
         sh "git config user.email shriyash@finov8.io"
 
         # Add changes to git
-        git_add
+        git_add(path: './android/app/build.gradle')
   
         # Commit the changes
         git_commit(
