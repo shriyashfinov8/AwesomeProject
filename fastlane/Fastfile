@@ -40,7 +40,7 @@ platform :android do
         sh "git status"
 
         # Add changes to git
-        git_add(path: './android/app/build.gradle')
+        git_add
   
         # Commit the changes
         git_commit(
