@@ -41,8 +41,6 @@ platform :android do
 
         sh "git rev-parse --is-inside-work-tree"
 
-        sh "git config user.email shriyash@finov8.io"
-
         # Add changes to git
         git_add(path: './android/app/build.gradle')
   

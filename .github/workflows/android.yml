@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0 # Fetch the full history so nothing is missing
           token: ${{ secrets.GH_ACCESS_TOKEN }}
@@ -49,6 +49,11 @@ jobs:
           gem install bundler -v 2.4.22
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
+
+      - name: Configure Git user
+          run: |
+            git config user.name "shriyashfinov8"
+            git config user.email "shriyash@finov8.io"
 
       - name: Determine Version Number
         id: get_version
