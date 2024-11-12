@@ -38,7 +38,7 @@ platform :android do
         push_to_git_remote
 
         # Build the AAB
-        gradle(task: 'clean bundleRelease', project_dir: './android/')
+        # gradle(task: 'clean bundleRelease', project_dir: './android/')
 
         # Upload the AAB to Google Play internal track
         # upload_to_play_store(
