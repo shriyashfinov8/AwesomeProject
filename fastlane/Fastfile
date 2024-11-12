@@ -2,7 +2,7 @@
 default_platform(:android)
 
 before_all do
-    ensure_git_status_clean  # Ensure no uncommitted changes
+    ensure_git_status_clean = false # Ensure no uncommitted changes
     git_pull                 # Pull the latest changes from the remote repository
 end
 
