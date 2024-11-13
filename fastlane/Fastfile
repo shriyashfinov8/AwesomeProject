@@ -53,11 +53,13 @@ platform :android do
   
         # Push the commit to the remote repository
         sh "git push -u origin main"
+
+        sh "ls -la android"
   
         # Build the AAB
-        gradle(task: 'clean bundleRelease', project_dir: './android/')
+        gradle(task: 'bundle', build_type: 'Release', project_dir: './android/')
 
-        sh "ls -la ./android/app/release"
+        sh "ls -la ./android/app/build/outputs/bundle/release"
   
         # Upload the AAB to Google Play internal track
         # upload_to_play_store(
