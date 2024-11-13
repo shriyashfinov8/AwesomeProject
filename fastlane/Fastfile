@@ -41,14 +41,14 @@ platform :android do
           version_name = get_version_name_from_gradle(gradle_file_path: './android/app/build.gradle')  # Use the existing version name
         end
       
-      Dir.chdir("..") do
-  
+        
         sh "git status"
-
+        
         sh "git rev-parse --is-inside-work-tree"
         
         sh "echo Listing files while git add"
         sh "ls -la"
+      Dir.chdir("..") do
 
         # Add changes to git
         git_add(path: './android/app/build.gradle')
