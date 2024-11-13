@@ -27,7 +27,7 @@ platform :android do
         version_name = ENV['VERSION_NUMBER']
         environment = ENV['ENVIRONMENT']
 
-        puts "Version number: #{version_number}"
+        puts "Version number: #{version_name}"
         puts "Environment: #{environment}"
   
         # Manually increment the version code in build.gradle
