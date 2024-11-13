@@ -40,17 +40,22 @@ platform :android do
           UI.message("version_number not provided, reusing the existing versionName in build.gradle")
           version_name = get_version_name_from_gradle(gradle_file_path: './android/app/build.gradle')  # Use the existing version name
         end
+      
+      Dir.chdir("..") do
   
         sh "git status"
 
         sh "git rev-parse --is-inside-work-tree"
+        
+        sh "echo Listing files while git add"
+        sh "ls -la"
 
         # Add changes to git
-        git_add(path: '../android/app/build.gradle')
+        git_add(path: './android/app/build.gradle')
   
         # Commit the changes
         git_commit(
-          path: '../android/app/build.gradle',
+          path: './android/app/build.gradle',
           message: "Bump version code and name to #{version_name}"
         )
         # sh "git commit -m 'Bump version code and name to #{version_name}'"
@@ -71,6 +76,7 @@ platform :android do
         #     'en-US' => "Release #{version_name}, Build #{get_version_code(app_project_dir: './android/app')}"
         #   }
         # )
+      end
       end
     end
   
