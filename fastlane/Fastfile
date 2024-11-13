@@ -57,7 +57,8 @@ platform :android do
         sh "ls -la android"
   
         # Build the AAB
-        gradle(task: 'bundle', build_type: 'Release', project_dir: './android/')
+        sh "fastlane run gradle task:bundleRelease project_dir:./android"
+        # gradle(task: 'bundle', build_type: 'Release', project_dir: './android/')
 
         sh "ls -la ./android/app/build/outputs/bundle/release"
   
