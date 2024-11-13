@@ -78,7 +78,7 @@ platform :android do
       gradle_file_path = options[:gradle_file_path]
   
       # Use sed to increment the versionCode in build.gradle (compatible with Linux)
-      sh "sed -i 's/versionCode \\([0-9]\\+\\)/versionCode $((\\1 + 1))/' #{gradle_file_path}"
+      sh "sed -i -E 's/versionCode ([0-9]+)/versionCode $((\\1 + 1))/' #{gradle_file_path}"
   
       UI.message("Successfully incremented versionCode in #{gradle_file_path}")
     end
