@@ -2,7 +2,7 @@
 default_platform(:android)
 
 before_all do
-    ensure_git_status_clean = false # Ensure no uncommitted changes
+    ensure_git_status_clean # Ensure no uncommitted changes
     git_pull                 # Pull the latest changes from the remote repository
 end
 
@@ -24,7 +24,11 @@ platform :android do
         sh "ls -la ./android/app"
   
         # Fetch the version name from the environment (if provided)
-        version_name = ENV['version_number']
+        version_name = ENV['VERSION_NUMBER']
+        environment = ENV['ENVIRONMENT']
+
+        puts "Version number: #{version_number}"
+        puts "Environment: #{environment}"
   
         # Manually increment the version code in build.gradle
         increment_version_code_in_gradle(gradle_file_path: './android/app/build.gradle')
@@ -42,11 +46,11 @@ platform :android do
         sh "git rev-parse --is-inside-work-tree"
 
         # Add changes to git
-        git_add(path: './android/app/build.gradle')
+        git_add(path: '../android/app/build.gradle')
   
         # Commit the changes
         git_commit(
-          path: './android/app/build.gradle',
+          path: '../android/app/build.gradle',
           message: "Bump version code and name to #{version_name}"
         )
         # sh "git commit -m 'Bump version code and name to #{version_name}'"
