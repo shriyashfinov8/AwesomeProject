@@ -31,7 +31,9 @@ platform :android do
         puts "Environment: #{environment}"
   
         # Manually increment the version code in build.gradle
-        increment_version_code_in_gradle(gradle_file_path: './android/app/build.gradle')
+        # increment_version_code_in_gradle(gradle_file_path: './android/app/build.gradle')
+
+        increment_version_code(app_project_dir: './android/app')
   
         # Update the version name in build.gradle only if VERSION_NAME is set
         if version_name
