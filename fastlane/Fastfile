@@ -55,6 +55,9 @@ platform :android do
         sh "git push -u origin main"
 
         sh "ls -la android"
+
+        # allow gradlew execution
+        sh "chmod +x ./android/gradlew"
   
         # Build the AAB
         sh "fastlane run gradle task:bundleRelease project_dir:./android"
