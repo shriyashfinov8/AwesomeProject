@@ -46,6 +46,8 @@ platform :android do
         
         sh "git add ./android/app/build.gradle"
 
+        sh "git config user.email shriyash@finov8.io"
+
         sh "git commit -m 'Bump version code and name to #{version_name}'"
   
         # Push the commit to the remote repository
