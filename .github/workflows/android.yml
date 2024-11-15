@@ -73,6 +73,19 @@ jobs:
           echo "RELEASE_NUMBER: $RELEASE_NUMBER"
         shell: bash
 
+      - name: Set up environment variables
+        id: setup_env
+        run: |
+          echo "ENV=${{ secrets['ENV_' ~ github.event.inputs.environment | upper }}}" >> .env
+          echo "API_BASE_URL=${{ secrets['API_BASE_URL_' ~ github.event.inputs.environment | upper] }}}" >> .env
+          echo "GOOGLE_OAUTH_CLIENT_ID_WEB=${{ secrets['GOOGLE_OAUTH_CLIENT_ID_WEB_' ~ github.event.inputs.environment | upper] }}}" >> .env
+          echo "GOOGLE_OAUTH_CLIENT_ID_IOS=${{ secrets['GOOGLE_OAUTH_CLIENT_ID_IOS_' ~ github.event.inputs.environment | upper] }}}" >> .env
+          echo "Printing current working directory"
+          pwd
+          echo "Printing the .env file"
+          ls -la
+          cat .env
+
       # Run Fastlane using the generated JSON key file
       - name: Build and deploy Android app using Fastlane
         run: bundle exec fastlane release_to_play_store --verbose
