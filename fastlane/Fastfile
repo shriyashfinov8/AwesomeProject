@@ -62,13 +62,13 @@ platform :android do
         sh "chmod +x ./android/gradlew"
 
         # npm install packages
-        sh "npm install"
+        # sh "npm install"
   
         # Build the AAB
-        sh "fastlane run gradle task:bundleRelease project_dir:./android"
+        # sh "fastlane run gradle task:bundleRelease project_dir:./android"
         # gradle(task: 'bundle', build_type: 'Release', project_dir: './android/')
 
-        sh "ls -la ./android/app/build/outputs/bundle/release"
+        # sh "ls -la ./android/app/build/outputs/bundle/release"
   
         # Upload the AAB to Google Play internal track
         # upload_to_play_store(
