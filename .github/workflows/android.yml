@@ -76,10 +76,7 @@ jobs:
       - name: Set up environment variables
         id: setup_env
         run: |
-          echo "ENV=${{ secrets[format('ENV_{0}', github.event.inputs.environment | upper)] }}" >> .env
-          echo "API_BASE_URL=${{ secrets[format('API_BASE_URL_{0}', github.event.inputs.environment | upper)] }}" >> .env
-          echo "GOOGLE_OAUTH_CLIENT_ID_WEB=${{ secrets[format('GOOGLE_OAUTH_CLIENT_ID_WEB_{0}', github.event.inputs.environment | upper)] }}" >> .env
-          echo "GOOGLE_OAUTH_CLIENT_ID_IOS=${{ secrets[format('GOOGLE_OAUTH_CLIENT_ID_IOS_{0}', github.event.inputs.environment | upper)] }}" >> .env
+          echo "ENV=${{ join(secrets['ENV_'], github.events.inputs.environment.toUpperCase()) }}" >> .env
           echo "Printing current working directory"
           pwd
           echo "Printing the .env file"
