@@ -76,7 +76,7 @@ jobs:
       - name: Set up environment variables
         id: setup_env
         run: |
-          ENV="${{ secrets.ENV_ }}${{ github.event.inputs.environment | upper }}"
+          ENV="${{ secrets.ENV_ }}$(echo "${{ github.event.inputs.environment }}" | tr '[:lower:]' '[:upper:]')"
           echo "ENV=$ENV" >> .env
           echo "Printing current working directory"
           pwd
