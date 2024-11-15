@@ -79,11 +79,11 @@ jobs:
           # Convert the input environment to uppercase
           ENV_NAME=$(echo "${{ github.event.inputs.environment }}" | tr '[:lower:]' '[:upper:]')
 
-          ENV=${{secrets['ENV_' + ENV_NAME]}}
-          API_BASE_URL=${{secrets['API_BASE_URL_' + ENV_NAME]}}
-          GOOGLE_OAUTH_CLIENT_ID_WEB = ${{secrets['GOOGLE_OAUTH_CLIENT_ID_WEB_' + ENV_NAME]}}
-          GOOGLE_OAUTH_CLIENT_ID_IOS = ${{secrets['GOOGLE_OAUTH_CLIENT_ID_IOS_' + ENV_NAME]}}
-          STRIPE_PUBLISHABLE_KEY = ${{secrets['STRIPE_PUBLISHABLE_KEY_' + ENV_NAME]}}
+          ENV=${{secrets['ENV_$ENV_NAME']}}
+          API_BASE_URL=${{secrets['API_BASE_URL_$ENV_NAME']}}
+          GOOGLE_OAUTH_CLIENT_ID_WEB = ${{secrets['GOOGLE_OAUTH_CLIENT_ID_WEB_$ENV_NAME']}}
+          GOOGLE_OAUTH_CLIENT_ID_IOS = ${{secrets['GOOGLE_OAUTH_CLIENT_ID_IOS_$ENV_NAME']}}
+          STRIPE_PUBLISHABLE_KEY = ${{secrets['STRIPE_PUBLISHABLE_KEY_$ENV_NAME']}}
 
           # Append the environment variables to the .env file
           echo "ENV=$ENV_SECRET" >> .env
