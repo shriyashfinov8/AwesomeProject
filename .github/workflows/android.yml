@@ -79,12 +79,12 @@ jobs:
           # Convert the input environment to uppercase
           ENV_NAME=$(echo "${{ github.event.inputs.environment }}" | tr '[:lower:]' '[:upper:]')
 
-          # Map the variables dynamically in the script
-          ENV=$(eval echo "\${{ vars.ENV_$ENV_NAME }}")
-          API_BASE_URL=$(eval echo "\${{ vars.API_BASE_URL_$ENV_NAME }}")
-          GOOGLE_OAUTH_CLIENT_ID_WEB=$(eval echo "\${{ vars.GOOGLE_OAUTH_CLIENT_ID_WEB_$ENV_NAME }}")
-          GOOGLE_OAUTH_CLIENT_ID_IOS=$(eval echo "\${{ vars.GOOGLE_OAUTH_CLIENT_ID_IOS_$ENV_NAME }}")
-          STRIPE_PUBLISHABLE_KEY=$(eval echo "\${{ vars.STRIPE_PUBLISHABLE_KEY_$ENV_NAME }}")
+          ENV=${{}}
+          ENV=${{secrets['ENV_$ENV_NAME']}}
+          API_BASE_URL=${{ vars[format('API_BASE_URL_{0}', github.event.inputs.environment.uppercase)] }}
+          GOOGLE_OAUTH_CLIENT_ID_WEB=${{ vars[format('GOOGLE_OAUTH_CLIENT_ID_WEB_{0}', github.event.inputs.environment.uppercase)] }}
+          GOOGLE_OAUTH_CLIENT_ID_IOS=${{ vars[format('GOOGLE_OAUTH_CLIENT_ID_IOS_{0}', github.event.inputs.environment.uppercase)] }}
+          STRIPE_PUBLISHABLE_KEY=${{ vars[format('STRIPE_PUBLISHABLE_KEY_{0}', github.event.inputs.environment.uppercase)] }}
 
           # Append the environment variables to the .env file
           echo "ENV=$ENV" >> .env
@@ -93,7 +93,6 @@ jobs:
           echo "GOOGLE_OAUTH_CLIENT_ID_IOS=$GOOGLE_OAUTH_CLIENT_ID_IOS" >> .env
           echo "STRIPE_PUBLISHABLE_KEY=$STRIPE_PUBLISHABLE_KEY" >> .env
 
-          # Debugging: Show the .env file contents
           echo "Printing current working directory"
           pwd
           echo "Printing the .env file"
