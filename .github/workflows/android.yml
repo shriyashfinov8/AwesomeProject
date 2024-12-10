@@ -73,26 +73,26 @@ jobs:
           echo "RELEASE_NUMBER: $RELEASE_NUMBER"
         shell: bash
 
-        - name: Set up environment variables
+      - name: Set up environment variables
         id: setup_env
         run: |
           # Convert the input environment to uppercase
           ENV_NAME=$(echo "${{ github.event.inputs.environment }}" | tr '[:lower:]' '[:upper:]')
-      
+
           # Map the variables dynamically in the script
           ENV=$(eval echo "\${{ vars.ENV_$ENV_NAME }}")
           API_BASE_URL=$(eval echo "\${{ vars.API_BASE_URL_$ENV_NAME }}")
           GOOGLE_OAUTH_CLIENT_ID_WEB=$(eval echo "\${{ vars.GOOGLE_OAUTH_CLIENT_ID_WEB_$ENV_NAME }}")
           GOOGLE_OAUTH_CLIENT_ID_IOS=$(eval echo "\${{ vars.GOOGLE_OAUTH_CLIENT_ID_IOS_$ENV_NAME }}")
           STRIPE_PUBLISHABLE_KEY=$(eval echo "\${{ vars.STRIPE_PUBLISHABLE_KEY_$ENV_NAME }}")
-      
+
           # Append the environment variables to the .env file
           echo "ENV=$ENV" >> .env
           echo "API_BASE_URL=$API_BASE_URL" >> .env
           echo "GOOGLE_OAUTH_CLIENT_ID_WEB=$GOOGLE_OAUTH_CLIENT_ID_WEB" >> .env
           echo "GOOGLE_OAUTH_CLIENT_ID_IOS=$GOOGLE_OAUTH_CLIENT_ID_IOS" >> .env
           echo "STRIPE_PUBLISHABLE_KEY=$STRIPE_PUBLISHABLE_KEY" >> .env
-      
+
           # Debugging: Show the .env file contents
           echo "Printing current working directory"
           pwd
