@@ -79,19 +79,21 @@ jobs:
           # Convert the input environment to uppercase
           ENV_NAME=$(echo "${{ github.event.inputs.environment }}" | tr '[:lower:]' '[:upper:]')
 
-          ENV=${{secrets['ENV_$ENV_NAME']}}
-          API_BASE_URL=${{secrets['API_BASE_URL_$ENV_NAME']}}
-          GOOGLE_OAUTH_CLIENT_ID_WEB = ${{secrets['GOOGLE_OAUTH_CLIENT_ID_WEB_$ENV_NAME']}}
-          GOOGLE_OAUTH_CLIENT_ID_IOS = ${{secrets['GOOGLE_OAUTH_CLIENT_ID_IOS_$ENV_NAME']}}
-          STRIPE_PUBLISHABLE_KEY = ${{secrets['STRIPE_PUBLISHABLE_KEY_$ENV_NAME']}}
+          # Dynamically fetch the GitHub repository variables based on ENV_NAME
+          ENV=${{ vars.ENV_${{ github.event.inputs.environment | toUpper }} }}
+          API_BASE_URL=${{ vars.API_BASE_URL_${{ github.event.inputs.environment | toUpper }} }}
+          GOOGLE_OAUTH_CLIENT_ID_WEB=${{ vars.GOOGLE_OAUTH_CLIENT_ID_WEB_${{ github.event.inputs.environment | toUpper }} }}
+          GOOGLE_OAUTH_CLIENT_ID_IOS=${{ vars.GOOGLE_OAUTH_CLIENT_ID_IOS_${{ github.event.inputs.environment | toUpper }} }}
+          STRIPE_PUBLISHABLE_KEY=${{ vars.STRIPE_PUBLISHABLE_KEY_${{ github.event.inputs.environment | toUpper }} }}
 
           # Append the environment variables to the .env file
-          echo "ENV=$ENV_SECRET" >> .env
-          echo "API_BASE_URL=$API_BASE_URL_SECRET" >> .env
-          echo "GOOGLE_OAUTH_CLIENT_ID_WEB=$GOOGLE_OAUTH_CLIENT_ID_WEB_SECRET" >> .env
-          echo "GOOGLE_OAUTH_CLIENT_ID_IOS=$GOOGLE_OAUTH_CLIENT_ID_IOS_SECRET" >> .env
-          echo "STRIPE_PUBLISHABLE_KEY=$STRIPE_PUBLISHABLE_KEY_SECRET" >> .env
+          echo "ENV=$ENV" >> .env
+          echo "API_BASE_URL=$API_BASE_URL" >> .env
+          echo "GOOGLE_OAUTH_CLIENT_ID_WEB=$GOOGLE_OAUTH_CLIENT_ID_WEB" >> .env
+          echo "GOOGLE_OAUTH_CLIENT_ID_IOS=$GOOGLE_OAUTH_CLIENT_ID_IOS" >> .env
+          echo "STRIPE_PUBLISHABLE_KEY=$STRIPE_PUBLISHABLE_KEY" >> .env
 
+          # Debugging: Show the .env file contents
           echo "Printing current working directory"
           pwd
           echo "Printing the .env file"
