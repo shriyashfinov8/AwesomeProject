@@ -78,10 +78,10 @@ jobs:
         id: setup_env
         run: |
 
-          API_BASE_URL=${{vars.API_BASE_URL}}
-          GOOGLE_OAUTH_CLIENT_ID_WEB=${{vars.GOOGLE_OAUTH_CLIENT_ID_WEB}}
-          GOOGLE_OAUTH_CLIENT_ID_IOS=${{vars.GOOGLE_OAUTH_CLIENT_ID_IOS}}
-          STRIPE_PUBLISHABLE_KEY=${{vars.STRIPE_PUBLISHABLE_KEY}}
+          API_BASE_URL=${{ vars.API_BASE_URL }}
+          GOOGLE_OAUTH_CLIENT_ID_WEB=${{ vars.GOOGLE_OAUTH_CLIENT_ID_WEB }}
+          GOOGLE_OAUTH_CLIENT_ID_IOS=${{ vars.GOOGLE_OAUTH_CLIENT_ID_IOS }}
+          STRIPE_PUBLISHABLE_KEY=${{ vars.STRIPE_PUBLISHABLE_KEY }}
 
           # Append the environment variables to the .env file
           echo "API_BASE_URL=$API_BASE_URL" >> .env
