@@ -43,12 +43,12 @@ jobs:
           ruby-version: 3.3.5
           bundler-cache: false
 
-      - name: Setup fastlane
-        id: set_up_fastlane
-        run: |
-          gem install bundler
-          bundle config path vendor/bundle
-          bundle install --jobs 4 --retry 3
+      # - name: Setup fastlane
+      #   id: set_up_fastlane
+      #   run: |
+      #     gem install bundler
+      #     bundle config path vendor/bundle
+      #     bundle install --jobs 4 --retry 3
 
       - name: Determine Version Number
         id: get_version
@@ -76,11 +76,11 @@ jobs:
       - name: Set up environment variables
         id: setup_env
         run: |
-          # Convert the input environment to uppercase
-          API_BASE_URL=${{ vars[format('API_BASE_URL_{0}', github.event.inputs.environment.uppercase)] }}
-          GOOGLE_OAUTH_CLIENT_ID_WEB=${{ vars[format('GOOGLE_OAUTH_CLIENT_ID_WEB_{0}', github.event.inputs.environment.uppercase)] }}
-          GOOGLE_OAUTH_CLIENT_ID_IOS=${{ vars[format('GOOGLE_OAUTH_CLIENT_ID_IOS_{0}', github.event.inputs.environment.uppercase)] }}
-          STRIPE_PUBLISHABLE_KEY=${{ vars[format('STRIPE_PUBLISHABLE_KEY_{0}', github.event.inputs.environment.uppercase)] }}
+          # Dynamically set variables from GitHub Actions vars or secrets
+          API_BASE_URL=${{ vars["API_BASE_URL_" + github.event.inputs.environment] }}
+          GOOGLE_OAUTH_CLIENT_ID_WEB=${{ vars["GOOGLE_OAUTH_CLIENT_ID_WEB_" + github.event.inputs.environment] }}
+          GOOGLE_OAUTH_CLIENT_ID_IOS=${{ vars["GOOGLE_OAUTH_CLIENT_ID_IOS_" + github.event.inputs.environment] }}
+          STRIPE_PUBLISHABLE_KEY=${{ vars["STRIPE_PUBLISHABLE_KEY_" + github.event.inputs.environment] }}
 
           # Append the environment variables to the .env file
           echo "API_BASE_URL=$API_BASE_URL" >> .env
