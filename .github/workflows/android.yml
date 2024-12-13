@@ -76,11 +76,13 @@ jobs:
       - name: Set up environment variables
         id: setup_env
         run: |
-          # Dynamically set variables from GitHub Actions vars or secrets
-          API_BASE_URL=${{ vars["API_BASE_URL_" + github.event.inputs.environment] }}
-          GOOGLE_OAUTH_CLIENT_ID_WEB=${{ vars["GOOGLE_OAUTH_CLIENT_ID_WEB_" + github.event.inputs.environment] }}
-          GOOGLE_OAUTH_CLIENT_ID_IOS=${{ vars["GOOGLE_OAUTH_CLIENT_ID_IOS_" + github.event.inputs.environment] }}
-          STRIPE_PUBLISHABLE_KEY=${{ vars["STRIPE_PUBLISHABLE_KEY_" + github.event.inputs.environment] }}
+          ENV_NAME=${{ github.event.inputs.environment }}  
+
+          # Dynamically construct variable names and fetch values
+          API_BASE_URL=$(eval echo "\${{ vars.API_BASE_URL_${ENV_NAME} }}")
+          GOOGLE_OAUTH_CLIENT_ID_WEB=$(eval echo "\${{ vars.GOOGLE_OAUTH_CLIENT_ID_WEB_${ENV_NAME} }}")
+          GOOGLE_OAUTH_CLIENT_ID_IOS=$(eval echo "\${{ vars.GOOGLE_OAUTH_CLIENT_ID_IOS_${ENV_NAME} }}")
+          STRIPE_PUBLISHABLE_KEY=$(eval echo "\${{ vars.STRIPE_PUBLISHABLE_KEY_${ENV_NAME} }}")
 
           # Append the environment variables to the .env file
           echo "API_BASE_URL=$API_BASE_URL" >> .env
